@@ -6,7 +6,7 @@ public class Moneda : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Destroy (gameObject, 10);
+		Destroy (gameObject, 5);
 		rb = GetComponent<Rigidbody2D> ();
 		rb.AddForce (new Vector2 (Random.Range(-100, 100),100));
 	}
