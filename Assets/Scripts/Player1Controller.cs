@@ -44,7 +44,7 @@ public class Player1Controller : MonoBehaviour {
 			//anim.SetFloat ("velocity", 0f);
 		}
 		//
-		if (Input.GetKeyDown (KeyCode.UpArrow) && suelo_cerca) {
+		if (Input.GetKeyDown (KeyCode.Space) && suelo_cerca) {
 			Salto ();
 			anim.SetBool ("jump", true);
 		}
