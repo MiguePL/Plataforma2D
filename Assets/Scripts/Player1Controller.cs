@@ -8,12 +8,17 @@ public class Player1Controller : MonoBehaviour {
 	public float velocidad = 100f;
 	//public float velocidad_maxima = 5f; LO COMENTADO ES PARA USAR ACELERACIÓN HASTA UNA VELOCIDAD MAXIMA Y NO UNA VELOCIDAD CONSTANTE DESDE INICIO
 	private Rigidbody2D rb;
+	public AudioClip sonido_salto;
+	public AudioClip sonido_herir;
+	public AudioClip sonido_moneda;
 	private GameControlScript gcs;
+	private AudioSource audio;
 
 
 	// Use this for initialization
 	void Start () {
 		anim = GetComponent<Animator> ();
+		audio = GetComponent<AudioSource> ();
 		rb = GetComponent<Rigidbody2D> ();
 		gcs = GameObject.Find ("GameControl").GetComponent<GameControlScript> ();
 	}
@@ -47,6 +52,7 @@ public class Player1Controller : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Space) && suelo_cerca) {
 			Salto ();
 			anim.SetBool ("jump", true);
+			audio.PlayOneShot (sonido_salto);
 		}
 
 	}
@@ -84,7 +90,15 @@ public class Player1Controller : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D col){
 		if (col.gameObject.tag == "muerte") {
+			Invoke ("muerte", 1);
+			audio.PlayOneShot (sonido_herir);
 			gcs.respaw ();
 		}
+		if (col.gameObject.tag == "Coin") {
+			audio.Play ();	
+		}
+	}
+	void muerte(){
+		gcs.respaw ();
 	}
 }
